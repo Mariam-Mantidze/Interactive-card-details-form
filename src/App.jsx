@@ -14,9 +14,15 @@ function App() {
     <>
       <GlobalStyle />
       <Card />
-      {submit ? <Success /> : <Form />}
+      <Main> {submit ? <Success /> : <Form />}</Main>
     </>
   );
 }
+
+const Main = styled.main`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default App;
