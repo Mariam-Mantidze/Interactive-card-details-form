@@ -28,11 +28,17 @@ function App() {
       if (onlyDigits.length <= 16) {
         const formattedValue = onlyDigits.replace(/(.{4})/g, "$1 ").trim();
         setValues({ ...values, [id]: formattedValue });
+      } else {
+        setValues({ ...values, [id]: value });
       }
-    } else {
-      setValues({ ...values, [id]: value });
     }
   };
+
+  // =================== NOT WORKING. INVESTIGATE =========================
+  // if (id === "month" || id === "year") {
+  //   const onlyDigits = value.replace(/\D/g, "");
+  //   setValues({ ...values, [id]: onlyDigits });
+  // }
 
   const validation = () => {
     let errors = {};
@@ -54,6 +60,23 @@ function App() {
     }
 
     // date validation
+    if (!values.month.trim()) {
+      errors.month = "Can't be empty";
+    } else if (/\D/.test(values.month.replace(/\s/g, ""))) {
+      errors.month = "Wrong format, numbers only";
+    } else if (values.month.replace(/\s/g, "").length !== 2) {
+      errors.month = "Date should be 2 numbers";
+    }
+
+    // cvc validation
+
+    if (!values.cvc.trim()) {
+      errors.cvc = "Can't be empty";
+    } else if (/\D/.test(values.cvc.replace(/\s/g, ""))) {
+      errors.cvc = "Wrong format, numbers only";
+    } else if (values.cvc.replace(/\s/g, "").length !== 3) {
+      errors.cvc = "Date should be 3 numbers";
+    }
 
     return errors;
   };

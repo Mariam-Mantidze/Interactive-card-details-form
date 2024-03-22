@@ -45,17 +45,21 @@ export default function Form({ handleChange, onSubmit, errors, ...values }) {
               className="date"
               placeholder="MM"
               type="text"
+              value={values.month}
             />
+
             <Input
               maxLength={2}
               errors={errors.year}
               onChange={handleChange}
+              value={values.year}
               id="year"
               className="date"
               placeholder="YY"
               type="text"
             />
           </div>
+          {errors.month && <ErrorMessage>{errors.month}</ErrorMessage>}
         </div>
 
         <div className="cvc">
@@ -68,6 +72,8 @@ export default function Form({ handleChange, onSubmit, errors, ...values }) {
             placeholder="e.g. 123"
             type="text"
           />
+
+          {errors.cvc && <ErrorMessage>{errors.cvc}</ErrorMessage>}
         </div>
       </div>
 
