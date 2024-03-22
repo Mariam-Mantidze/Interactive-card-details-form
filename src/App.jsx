@@ -23,11 +23,48 @@ function App() {
   const handleChange = (e) => {
     const { id, value } = e.target;
 
-    setValues({ ...values, [id]: value });
+    if (id === "cardNumber") {
+      const onlyDigits = value.replace(/\D/g, "");
+      if (onlyDigits.length <= 16) {
+        const formattedValue = onlyDigits.replace(/(.{4})/g, "$1 ").trim();
+        setValues({ ...values, [id]: formattedValue });
+      }
+    } else {
+      setValues({ ...values, [id]: value });
+    }
   };
 
   const validation = () => {
     let errors = {};
+
+    // name validation
+    if (!values.name.trim()) {
+      errors.name = "Can't be empty";
+    } else if (!isNaN(values.name)) {
+      errors.name = "Wrong format, can't be number";
+    }
+
+    // card number validation
+    if (!values.cardNumber.trim()) {
+      errors.cardNumber = "Can't be empty";
+    } else if (/\D/.test(values.cardNumber.replace(/\s/g, ""))) {
+      errors.cardNumber = "Wrong format, numbers only";
+    } else if (values.cardNumber.replace(/\s/g, "").length !== 16) {
+      errors.cardNumber = "Card number should be 16 digits long";
+    }
+
+    // date validation
+
+    return errors;
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validation();
+
+    setErrors(validationErrors);
+
+    // setSubmit(true);
   };
 
   return (
@@ -39,7 +76,12 @@ function App() {
         {submit ? (
           <Success />
         ) : (
-          <Form {...values} handleChange={handleChange} setSubmit={setSubmit} />
+          <Form
+            {...values}
+            handleChange={handleChange}
+            onSubmit={onSubmit}
+            errors={errors}
+          />
         )}
       </Main>
     </>

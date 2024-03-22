@@ -1,27 +1,36 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-export default function Form({ handleChange, setSubmit }) {
+export default function Form({ handleChange, onSubmit, errors, ...values }) {
   return (
     <FormComponent>
       <div className="label-input">
         <label htmlFor="name">Cardholder Name</label>
         <Input
+          maxLength={20}
+          errors={errors.name}
           onChange={handleChange}
           id="name"
           placeholder="e.g. John Doe"
           type="text"
         />
+
+        {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
       </div>
 
       <div className="label-input">
         <label htmlFor="card-number">Card Number</label>
         <Input
+          value={values.cardNumber}
+          maxLength={19}
+          errors={errors.cardNumber}
           onChange={handleChange}
           id="cardNumber"
           placeholder="e.g. 1234 5678 9123"
-          type="number"
+          type="text"
         />
+
+        {errors.cardNumber && <ErrorMessage>{errors.cardNumber}</ErrorMessage>}
       </div>
 
       <div className="flex-container">
@@ -29,18 +38,22 @@ export default function Form({ handleChange, setSubmit }) {
           <label htmlFor="date">Exp. Date (MM/DD)</label>
           <div className="date-container">
             <Input
+              maxLength={2}
+              errors={errors.month}
               onChange={handleChange}
               id="month"
               className="date"
               placeholder="MM"
-              type="number"
+              type="text"
             />
             <Input
+              maxLength={2}
+              errors={errors.year}
               onChange={handleChange}
               id="year"
               className="date"
               placeholder="YY"
-              type="number"
+              type="text"
             />
           </div>
         </div>
@@ -48,15 +61,17 @@ export default function Form({ handleChange, setSubmit }) {
         <div className="cvc">
           <label htmlFor="cvc">CVC</label>
           <Input
+            maxLength={3}
+            errors={errors.cvc}
             onChange={handleChange}
             id="cvc"
             placeholder="e.g. 123"
-            type="number"
+            type="text"
           />
         </div>
       </div>
 
-      <button onClick={() => setSubmit(true)} className="confirm" type="submit">
+      <button onClick={onSubmit} className="confirm" type="submit">
         Confirm
       </button>
     </FormComponent>
@@ -148,4 +163,12 @@ const Input = styled.input`
     color: rgba(33, 9, 47, 1);
     opacity: 0.25;
   }
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 15.31px;
+  text-align: left;
+  color: rgba(255, 80, 80, 1);
 `;
