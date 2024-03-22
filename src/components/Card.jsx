@@ -3,7 +3,7 @@ import FrontCard from "/images/bg-card-front.png";
 import BackCard from "/images/bg-card-back.png";
 import MobileBackground from "/images/bg-main-mobile.png";
 
-export default function Card() {
+export default function Card({ name, cardNumber, month, year, cvc }) {
   return (
     <CardBox>
       <CardContainer>
@@ -13,16 +13,39 @@ export default function Card() {
             <div className="small-circle"></div>
           </div>
 
-          <span className="numbers">0000 0000 0000 0000</span>
+          {cardNumber ? (
+            <span className="numbers">{cardNumber}</span>
+          ) : (
+            <span className="numbers">0000 0000 0000 0000</span>
+          )}
 
           <div className="name-date">
-            <span className="name">JANE APPLESEED</span>
-            <span className="date">00/00</span>
+            {name ? (
+              <span className="name">{name}</span>
+            ) : (
+              <span className="name">JANE APPLESEED</span>
+            )}
+
+            {month ? (
+              <span className="date">
+                {month}
+                <span className="date">{year}</span>
+              </span>
+            ) : (
+              <span className="date">
+                00/
+                <span className="date">00</span>
+              </span>
+            )}
           </div>
         </FrontCardContainer>
 
         <BackContainer>
-          <span className="cvc">000</span>
+          {cvc ? (
+            <span className="cvc">{cvc}</span>
+          ) : (
+            <span className="cvc">000</span>
+          )}
         </BackContainer>
       </CardContainer>
     </CardBox>

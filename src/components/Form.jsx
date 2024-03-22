@@ -1,34 +1,62 @@
 import styled from "styled-components";
+import { useState } from "react";
 
-export default function Form() {
+export default function Form({ handleChange, setSubmit }) {
   return (
     <FormComponent>
       <div className="label-input">
-        <label htmlFor="">Cardholder Name</label>
-        <Input placeholder="e.g. John Doe" type="text" />
+        <label htmlFor="name">Cardholder Name</label>
+        <Input
+          onChange={handleChange}
+          id="name"
+          placeholder="e.g. John Doe"
+          type="text"
+        />
       </div>
 
       <div className="label-input">
-        <label htmlFor="">Card Number</label>
-        <Input placeholder="e.g. 1234 5678 9123" type="number" />
+        <label htmlFor="card-number">Card Number</label>
+        <Input
+          onChange={handleChange}
+          id="cardNumber"
+          placeholder="e.g. 1234 5678 9123"
+          type="number"
+        />
       </div>
 
       <div className="flex-container">
         <div>
-          <label htmlFor="">Exp. Date (MM/DD)</label>
+          <label htmlFor="date">Exp. Date (MM/DD)</label>
           <div className="date-container">
-            <Input className="date" placeholder="MM" type="number" />
-            <Input className="date" placeholder="YY" type="number" />
+            <Input
+              onChange={handleChange}
+              id="month"
+              className="date"
+              placeholder="MM"
+              type="number"
+            />
+            <Input
+              onChange={handleChange}
+              id="year"
+              className="date"
+              placeholder="YY"
+              type="number"
+            />
           </div>
         </div>
 
         <div className="cvc">
-          <label htmlFor="">CVC</label>
-          <Input placeholder="e.g. 123" type="number" />
+          <label htmlFor="cvc">CVC</label>
+          <Input
+            onChange={handleChange}
+            id="cvc"
+            placeholder="e.g. 123"
+            type="number"
+          />
         </div>
       </div>
 
-      <button className="confirm" type="submit">
+      <button onClick={() => setSubmit(true)} className="confirm" type="submit">
         Confirm
       </button>
     </FormComponent>
@@ -93,6 +121,7 @@ const FormComponent = styled.form`
     font-size: 18px;
     font-weight: 500;
     line-height: 22.97px;
+    cursor: pointer;
   }
 `;
 
@@ -101,6 +130,19 @@ const Input = styled.input`
   border-radius: 8px;
   border: 1px solid rgba(223, 222, 224, 1);
   width: 327px;
+  cursor: pointer;
+  color: rgba(33, 9, 47, 1);
+
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #610595;
+    /* border: 1px solid transparent; */
+    /* border-image: linear-gradient(163.95deg, #6348fe 4.74%, #610595 88.83%) 1; */
+  }
 
   &::placeholder {
     color: rgba(33, 9, 47, 1);

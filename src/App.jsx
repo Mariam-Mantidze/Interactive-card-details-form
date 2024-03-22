@@ -9,12 +9,39 @@ import { GlobalStyle } from "../styles/GlobalStyles";
 
 function App() {
   const [submit, setSubmit] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState("");
+
+  const [values, setValues] = useState({
+    name: "",
+    cardNumber: "",
+    month: "",
+    year: "",
+    cvc: "",
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+
+    setValues({ ...values, [id]: value });
+  };
+
+  const validation = () => {
+    let errors = {};
+  };
 
   return (
     <>
       <GlobalStyle />
-      <Card />
-      <Main> {submit ? <Success /> : <Form />}</Main>
+      <Card {...values} />
+      <Main>
+        {" "}
+        {submit ? (
+          <Success />
+        ) : (
+          <Form {...values} handleChange={handleChange} setSubmit={setSubmit} />
+        )}
+      </Main>
     </>
   );
 }
