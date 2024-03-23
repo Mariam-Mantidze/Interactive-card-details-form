@@ -34,8 +34,8 @@ export default function Form({ handleChange, onSubmit, errors, ...values }) {
       </div>
 
       <div className="flex-container">
-        <div>
-          <label htmlFor="date">Exp. Date (MM/DD)</label>
+        <div className="date-flex">
+          <label htmlFor="date">Exp. Date (MM/YY)</label>
           <div className="date-container">
             <Input
               maxLength={2}
@@ -115,7 +115,11 @@ const FormComponent = styled.form`
   & .date-container {
     display: flex;
     gap: 8px;
-    margin-top: 9px;
+  }
+  & .date-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
   }
 
   & .date {
