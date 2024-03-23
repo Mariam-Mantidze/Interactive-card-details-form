@@ -72,9 +72,10 @@ const FrontCardContainer = styled.div`
   width: 285px;
   height: 156.21px;
   padding: 17px 20px 19.6px 19px;
-  top: 28px;
+  top: 5px;
   left: 16px;
   z-index: 2;
+  box-shadow: 0px 39px 60px 0px rgba(0, 0, 0, 0.14);
   position: absolute;
 
   & .circles {
@@ -134,7 +135,7 @@ const BackContainer = styled.div`
   width: 285px;
   height: 156.21px;
   z-index: 1;
-  top: -60px;
+  top: -94px;
   right: 16px;
   position: absolute;
   padding: 65px 0 0px 231px;
