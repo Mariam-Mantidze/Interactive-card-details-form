@@ -60,14 +60,27 @@ function App() {
     }
 
     // date validation
-    if (!values.month.trim() || !values.year.trim()) {
+    if (!values.month.trim() && !values.year.trim()) {
       errors.month = "Can't be blank";
     } else if (
       /\D/.test(values.month.replace(/\s/g, "")) ||
       /\D/.test(values.year.replace(/\s/g, ""))
     ) {
       errors.month = "Wrong format, numbers only";
-    } else if (values.month.replace(/\s/g, "").length !== 2) {
+    } else if (
+      values.month.replace(/\s/g, "").length == 2 &&
+      values.year.replace(/\s/g, "").length !== 2
+    ) {
+      errors.month = "Can't be blank";
+    } else if (
+      values.year.replace(/\s/g, "").length == 2 &&
+      values.month.replace(/\s/g, "").length !== 2
+    ) {
+      errors.month = "Can't be blank";
+    } else if (
+      values.month.replace(/\s/g, "").length < 2 ||
+      values.year.replace(/\s/g, "").length < 2
+    ) {
       errors.month = "Date should be 2 numbers";
     }
 

@@ -88,11 +88,6 @@ export default function Form({ handleChange, onSubmit, errors, ...values }) {
   );
 }
 
-const FormParentContainer = styled.div`
-  display:flex;
-  align-items
-`;
-
 const FormComponent = styled.form`
   margin-top: 110px;
   padding: 0 24px 45px;
@@ -104,7 +99,7 @@ const FormComponent = styled.form`
   @media (min-width: 1000px) {
     margin-top: 0;
     padding: 0;
-    /* margin-left: 127px; */
+    gap: 26px;
   }
 
   & label {
@@ -125,11 +120,19 @@ const FormComponent = styled.form`
     display: flex;
     gap: 11px;
     align-items: baseline;
+
+    @media (min-width: 1000px) {
+      gap: 20px;
+    }
   }
 
   & .date-container {
     display: flex;
     gap: 8px;
+
+    @media (min-width: 1000px) {
+      gap: 10px;
+    }
   }
   & .date-flex {
     display: flex;
@@ -138,7 +141,7 @@ const FormComponent = styled.form`
   }
 
   & .date {
-    width: 72px;
+    width: 80px;
   }
 
   .cvc {
@@ -149,6 +152,10 @@ const FormComponent = styled.form`
 
   & .cvc input {
     width: 164px;
+
+    @media (min-width: 1000px) {
+      width: 191px;
+    }
   }
 
   & .confirm {
@@ -162,6 +169,12 @@ const FormComponent = styled.form`
     font-weight: 500;
     line-height: 22.97px;
     cursor: pointer;
+    margin-top: 8px;
+
+    @media (min-width: 1000px) {
+      width: 191px;
+      margin-top: 16px;
+    }
   }
 `;
 
@@ -173,11 +186,15 @@ const Input = styled.input`
   cursor: pointer;
   color: rgba(33, 9, 47, 1);
 
+  @media (min-width: 1000px) {
+    width: 381px;
+  }
+
   &::-webkit-inner-spin-button {
     display: none;
   }
 
-  &:focus {
+  &:hover {
     outline: none;
     border-color: #610595;
     /* border: 1px solid transparent; */
@@ -196,4 +213,8 @@ const ErrorMessage = styled.p`
   line-height: 15.31px;
   text-align: left;
   color: rgba(255, 80, 80, 1);
+
+  @media (min-width: 1000px) {
+    font-size: 12px;
+  }
 `;
