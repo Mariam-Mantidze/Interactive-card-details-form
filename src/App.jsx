@@ -95,7 +95,7 @@ function App() {
   };
 
   return (
-    <>
+    <MainContainer>
       <GlobalStyle />
       <Card {...values} />
       <Main>
@@ -111,14 +111,32 @@ function App() {
           />
         )}
       </Main>
-    </>
+    </MainContainer>
   );
 }
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 1000px) {
+    flex-direction: row;
+    /* justify-content: space-between; */
+    gap: 349px;
+  }
+
+  @media (min-width: 1000px) {
+    flex-direction: row;
+    /* justify-content: space-between; */
+    gap: 349px;
+  }
+`;
 
 const Main = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `;
 
 export default App;

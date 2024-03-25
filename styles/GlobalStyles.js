@@ -11,14 +11,8 @@ export const GlobalStyle = createGlobalStyle`
 body {
     font-family: "Space Grotesk", sans-serif;
     min-height: 100dvh;
-    display: flex;
-  flex-direction: column;
-
-  overflow-x: hidden;
-
-
-
-
+    /* display: flex;
+  flex-direction: column; */
 }
 
 button {

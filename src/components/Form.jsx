@@ -3,86 +3,95 @@ import { useState } from "react";
 
 export default function Form({ handleChange, onSubmit, errors, ...values }) {
   return (
-    <FormComponent>
-      <div className="label-input">
-        <label htmlFor="name">Cardholder Name</label>
-        <Input
-          maxLength={20}
-          errors={errors.name}
-          onChange={handleChange}
-          id="name"
-          placeholder="e.g. John Doe"
-          type="text"
-        />
-
-        {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
-      </div>
-
-      <div className="label-input">
-        <label htmlFor="card-number">Card Number</label>
-        <Input
-          value={values.cardNumber}
-          maxLength={19}
-          errors={errors.cardNumber}
-          onChange={handleChange}
-          id="cardNumber"
-          placeholder="e.g. 1234 5678 9123"
-          type="text"
-        />
-
-        {errors.cardNumber && <ErrorMessage>{errors.cardNumber}</ErrorMessage>}
-      </div>
-
-      <div className="flex-container">
-        <div className="date-flex">
-          <label htmlFor="date">Exp. Date (MM/YY)</label>
-          <div className="date-container">
-            <Input
-              maxLength={2}
-              errors={errors.month}
-              onChange={handleChange}
-              id="month"
-              className="date"
-              placeholder="MM"
-              type="text"
-              value={values.month}
-            />
-
-            <Input
-              maxLength={2}
-              errors={errors.year}
-              onChange={handleChange}
-              value={values.year}
-              id="year"
-              className="date"
-              placeholder="YY"
-              type="text"
-            />
-          </div>
-          {errors.month && <ErrorMessage>{errors.month}</ErrorMessage>}
-        </div>
-
-        <div className="cvc">
-          <label htmlFor="cvc">CVC</label>
+    <div>
+      <FormComponent>
+        <div className="label-input">
+          <label htmlFor="name">Cardholder Name</label>
           <Input
-            maxLength={3}
-            errors={errors.cvc}
+            maxLength={20}
+            errors={errors.name}
             onChange={handleChange}
-            id="cvc"
-            placeholder="e.g. 123"
+            id="name"
+            placeholder="e.g. John Doe"
             type="text"
           />
 
-          {errors.cvc && <ErrorMessage>{errors.cvc}</ErrorMessage>}
+          {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
         </div>
-      </div>
 
-      <button onClick={onSubmit} className="confirm" type="submit">
-        Confirm
-      </button>
-    </FormComponent>
+        <div className="label-input">
+          <label htmlFor="card-number">Card Number</label>
+          <Input
+            value={values.cardNumber}
+            maxLength={19}
+            errors={errors.cardNumber}
+            onChange={handleChange}
+            id="cardNumber"
+            placeholder="e.g. 1234 5678 9123"
+            type="text"
+          />
+
+          {errors.cardNumber && (
+            <ErrorMessage>{errors.cardNumber}</ErrorMessage>
+          )}
+        </div>
+
+        <div className="flex-container">
+          <div className="date-flex">
+            <label htmlFor="date">Exp. Date (MM/YY)</label>
+            <div className="date-container">
+              <Input
+                maxLength={2}
+                errors={errors.month}
+                onChange={handleChange}
+                id="month"
+                className="date"
+                placeholder="MM"
+                type="text"
+                value={values.month}
+              />
+
+              <Input
+                maxLength={2}
+                errors={errors.year}
+                onChange={handleChange}
+                value={values.year}
+                id="year"
+                className="date"
+                placeholder="YY"
+                type="text"
+              />
+            </div>
+            {errors.month && <ErrorMessage>{errors.month}</ErrorMessage>}
+          </div>
+
+          <div className="cvc">
+            <label htmlFor="cvc">CVC</label>
+            <Input
+              maxLength={3}
+              errors={errors.cvc}
+              onChange={handleChange}
+              id="cvc"
+              placeholder="e.g. 123"
+              type="text"
+            />
+
+            {errors.cvc && <ErrorMessage>{errors.cvc}</ErrorMessage>}
+          </div>
+        </div>
+
+        <button onClick={onSubmit} className="confirm" type="submit">
+          Confirm
+        </button>
+      </FormComponent>
+    </div>
   );
 }
+
+const FormParentContainer = styled.div`
+  display:flex;
+  align-items
+`;
 
 const FormComponent = styled.form`
   margin-top: 110px;
@@ -91,6 +100,12 @@ const FormComponent = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (min-width: 1000px) {
+    margin-top: 0;
+    padding: 0;
+    /* margin-left: 127px; */
+  }
 
   & label {
     font-size: 12px;
