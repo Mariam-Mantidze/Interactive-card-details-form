@@ -1,61 +1,17 @@
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import ReactInputMask from "react-input-mask";
 
 // import { useState } from "react";
 
-const schema = yup.object({
-  name: yup
-    .string()
-    .required("Name is required")
-    .min(3, "Name should have at least 3 characters")
-    .max(30, "Name should have max. 30 characters")
-    .test("space check", "Both name and surname required", (value) =>
-      value.includes(" ")
-    ),
-  cardNumber: yup
-    .string()
-    .required("Card number is required")
-    .min(19, "Min. 16 symbols are required"),
-  month: yup
-    .string()
-    .required("Can't be blank")
-    .test(
-      "month validation",
-      "Invalid value",
-      (value) => parseInt(value) > 0 && parseInt(value) <= 12
-    ),
-  year: yup
-    .string()
-    .required("Can't be blank")
-    .test("year validation", "Invalid value", (value) => parseInt(value) > 24),
-  cvc: yup.string().required("CVC is required"),
-});
-
-export default function Form({ onSubmit }) {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
-  console.log(errors);
-
+export default function Form({ onSubmit, register, handleSubmit, errors }) {
   return (
     <div>
       <FormComponent onSubmit={handleSubmit(onSubmit)}>
         <div className="label-input">
           <label htmlFor="name">Cardholder Name</label>
           <Input
+            style={errors.name && { borderColor: "rgba(255, 80, 80, 1)" }}
             {...register("name")}
-            // maxLength={20}
-            // errors={errors.name}
-            // onChange={handleChange}
             id="name"
             placeholder="e.g. John Doe"
             type="text"
@@ -67,6 +23,8 @@ export default function Form({ onSubmit }) {
         <div className="label-input">
           <label htmlFor="cardNumber">Card Number</label>
           <ReactInputMask
+            style={errors.cardNumber && { borderColor: "rgba(255, 80, 80, 1)" }}
+            className="inputmask"
             {...register("cardNumber")}
             id="cardNumber"
             placeholder="e.g. 1234 5678 9123"
@@ -85,9 +43,10 @@ export default function Form({ onSubmit }) {
             <label htmlFor="month">Exp. Date (MM/YY)</label>
             <div className="date-container">
               <ReactInputMask
+                style={errors.month && { borderColor: "rgba(255, 80, 80, 1)" }}
                 {...register("month")}
                 id="month"
-                className="date"
+                className="date inputmask"
                 placeholder="MM"
                 type="text"
                 mask="99"
@@ -95,9 +54,10 @@ export default function Form({ onSubmit }) {
               />
 
               <ReactInputMask
+                style={errors.year && { borderColor: "rgba(255, 80, 80, 1)" }}
                 {...register("year")}
                 id="year"
-                className="date"
+                className="date inputmask"
                 placeholder="YY"
                 type="text"
                 mask="99"
@@ -113,12 +73,14 @@ export default function Form({ onSubmit }) {
           <div className="cvc">
             <label htmlFor="cvc">CVC</label>
             <ReactInputMask
+              style={errors.cvc && { borderColor: "rgba(255, 80, 80, 1)" }}
               {...register("cvc")}
               id="cvc"
               placeholder="e.g. 123"
               type="text"
               mask="999"
               maskChar=""
+              className="inputmask"
             />
             {errors.cvc && <ErrorMessage>{errors.cvc.message}</ErrorMessage>}
           </div>
@@ -139,6 +101,35 @@ const FormComponent = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  & .inputmask {
+    padding: 11px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(223, 222, 224, 1);
+    width: 327px;
+    cursor: pointer;
+    color: rgba(33, 9, 47, 1);
+
+    @media (min-width: 1000px) {
+      width: 381px;
+    }
+
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+
+    &:hover {
+      outline: none;
+      border-color: #610595;
+      /* border: 1px solid transparent; */
+      /* border-image: linear-gradient(163.95deg, #6348fe 4.74%, #610595 88.83%) 1; */
+    }
+
+    &::placeholder {
+      color: rgba(33, 9, 47, 1);
+      opacity: 0.25;
+    }
+  }
 
   @media (min-width: 1000px) {
     margin-top: 0;

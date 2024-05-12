@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import CheckMark from "/images/icon-complete.svg";
 
-export default function Success() {
+export default function Success({ setSubmit }) {
   return (
     <SuccessContainer>
       <img className="check-mark" src={CheckMark} alt="check-mark" />
       <h2 className="thank-you">THANK YOU!</h2>
       <p className="success-text">We’ve added your card details</p>
-      <button className="continue-btn">Continue</button>
+      <button onClick={() => setSubmit(false)} className="continue-btn">
+        Continue
+      </button>
     </SuccessContainer>
   );
 }
@@ -43,7 +45,7 @@ const SuccessContainer = styled.div`
     width: 100%;
     margin-top: 48px;
     width: 327px;
-
+    cursor: pointer;
     color: rgba(255, 255, 255, 1);
   }
 `;
