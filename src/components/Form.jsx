@@ -1,6 +1,16 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-// import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useState } from "react";
+
+const schema = yup.object({
+  name: yup.string().required(),
+  cardNumber: yup.string().required(),
+  month: yup.string().required(),
+  year: yup.string().required(),
+  cvc: yup.string().required(),
+});
 
 export default function Form({ onSubmit }) {
   const {
@@ -8,7 +18,11 @@ export default function Form({ onSubmit }) {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  console.log(errors);
 
   return (
     <div>
@@ -18,14 +32,14 @@ export default function Form({ onSubmit }) {
           <Input
             {...register("name")}
             maxLength={20}
-            errors={errors.name}
+            // errors={errors.name}
             // onChange={handleChange}
             id="name"
             placeholder="e.g. John Doe"
             type="text"
           />
 
-          {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+          {/* {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>} */}
         </div>
 
         <div className="label-input">
@@ -34,16 +48,16 @@ export default function Form({ onSubmit }) {
             {...register("cardNumber")}
             // value={values.cardNumber}
             maxLength={19}
-            errors={errors.cardNumber}
+            // errors={errors.cardNumber}
             // onChange={handleChange}
             id="cardNumber"
             placeholder="e.g. 1234 5678 9123"
             type="text"
           />
 
-          {errors.cardNumber && (
+          {/* {errors.cardNumber && (
             <ErrorMessage>{errors.cardNumber}</ErrorMessage>
-          )}
+          )} */}
         </div>
 
         <div className="flex-container">
@@ -53,7 +67,7 @@ export default function Form({ onSubmit }) {
               <Input
                 {...register("month")}
                 maxLength={2}
-                errors={errors.month}
+                // errors={errors.month}
                 // onChange={handleChange}
                 id="month"
                 className="date"
@@ -65,7 +79,7 @@ export default function Form({ onSubmit }) {
               <Input
                 {...register("year")}
                 maxLength={2}
-                errors={errors.year}
+                // errors={errors.year}
                 // onChange={handleChange}
                 // value={values.year}
                 id="year"
@@ -74,7 +88,7 @@ export default function Form({ onSubmit }) {
                 type="text"
               />
             </div>
-            {errors.month && <ErrorMessage>{errors.month}</ErrorMessage>}
+            {/* {errors.month && <ErrorMessage>{errors.month}</ErrorMessage>} */}
           </div>
 
           <div className="cvc">
@@ -82,14 +96,14 @@ export default function Form({ onSubmit }) {
             <Input
               {...register("cvc")}
               maxLength={3}
-              errors={errors.cvc}
+              // errors={errors.cvc}
               // onChange={handleChange}
               id="cvc"
               placeholder="e.g. 123"
               type="text"
             />
 
-            {errors.cvc && <ErrorMessage>{errors.cvc}</ErrorMessage>}
+            {/* {errors.cvc && <ErrorMessage>{errors.cvc}</ErrorMessage>} */}
           </div>
         </div>
 
