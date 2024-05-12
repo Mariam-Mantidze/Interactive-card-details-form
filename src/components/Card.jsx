@@ -14,22 +14,14 @@ export default function Card({ name, cardNumber, month, year, cvc }) {
             <div className="small-circle"></div>
           </div>
 
-          {cardNumber ? (
-            <span className="numbers">{cardNumber}</span>
-          ) : (
-            <span className="numbers">0000 0000 0000 0000</span>
-          )}
+          <span className="numbers">{cardNumber || "0000 0000 0000 0000"}</span>
 
           <div className="name-date">
-            {name ? (
-              <span className="name">{name}</span>
-            ) : (
-              <span className="name">JANE APPLESEED</span>
-            )}
+            <span className="name">{name || "JANE APPLESEED"}</span>
 
             {month ? (
               <span className="date">
-                {month}
+                {`${month}/`}
                 <span className="date">{year}</span>
               </span>
             ) : (
@@ -54,7 +46,6 @@ export default function Card({ name, cardNumber, month, year, cvc }) {
 }
 
 const CardBox = styled.div`
-  /* padding: 32px 16px 51px 0; */
   background-image: url(${MobileBackground});
   background-repeat: no-repeat;
   background-size: cover;
