@@ -5,11 +5,11 @@ import * as yup from "yup";
 import { useState } from "react";
 
 const schema = yup.object({
-  name: yup.string().required(),
-  cardNumber: yup.string().required(),
-  month: yup.string().required(),
-  year: yup.string().required(),
-  cvc: yup.string().required(),
+  name: yup.string().required("Name is required"),
+  cardNumber: yup.string().required("Card number is required"),
+  month: yup.string().required("Can't be blank"),
+  year: yup.string().required("Can't be blank"),
+  cvc: yup.string().required("CVC is required"),
 });
 
 export default function Form({ onSubmit }) {
@@ -31,7 +31,7 @@ export default function Form({ onSubmit }) {
           <label htmlFor="name">Cardholder Name</label>
           <Input
             {...register("name")}
-            maxLength={20}
+            // maxLength={20}
             // errors={errors.name}
             // onChange={handleChange}
             id="name"
@@ -39,7 +39,7 @@ export default function Form({ onSubmit }) {
             type="text"
           />
 
-          {/* {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>} */}
+          {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
         </div>
 
         <div className="label-input">
@@ -55,9 +55,9 @@ export default function Form({ onSubmit }) {
             type="text"
           />
 
-          {/* {errors.cardNumber && (
-            <ErrorMessage>{errors.cardNumber}</ErrorMessage>
-          )} */}
+          {errors.cardNumber && (
+            <ErrorMessage>{errors.cardNumber.message}</ErrorMessage>
+          )}
         </div>
 
         <div className="flex-container">
@@ -88,7 +88,10 @@ export default function Form({ onSubmit }) {
                 type="text"
               />
             </div>
-            {/* {errors.month && <ErrorMessage>{errors.month}</ErrorMessage>} */}
+
+            {errors.year || errors.month ? (
+              <ErrorMessage>{errors.month.message}</ErrorMessage>
+            ) : null}
           </div>
 
           <div className="cvc">
@@ -102,8 +105,7 @@ export default function Form({ onSubmit }) {
               placeholder="e.g. 123"
               type="text"
             />
-
-            {/* {errors.cvc && <ErrorMessage>{errors.cvc}</ErrorMessage>} */}
+            {errors.cvc && <ErrorMessage>{errors.cvc.message}</ErrorMessage>}
           </div>
         </div>
 
