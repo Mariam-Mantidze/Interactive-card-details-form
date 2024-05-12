@@ -1,16 +1,25 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+// import { useState } from "react";
 
-export default function Form({ handleChange, onSubmit, errors, ...values }) {
+export default function Form({ onSubmit }) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
   return (
     <div>
-      <FormComponent>
+      <FormComponent onSubmit={handleSubmit(onSubmit)}>
         <div className="label-input">
           <label htmlFor="name">Cardholder Name</label>
           <Input
+            {...register("name")}
             maxLength={20}
             errors={errors.name}
-            onChange={handleChange}
+            // onChange={handleChange}
             id="name"
             placeholder="e.g. John Doe"
             type="text"
@@ -20,12 +29,13 @@ export default function Form({ handleChange, onSubmit, errors, ...values }) {
         </div>
 
         <div className="label-input">
-          <label htmlFor="card-number">Card Number</label>
+          <label htmlFor="cardNumber">Card Number</label>
           <Input
-            value={values.cardNumber}
+            {...register("cardNumber")}
+            // value={values.cardNumber}
             maxLength={19}
             errors={errors.cardNumber}
-            onChange={handleChange}
+            // onChange={handleChange}
             id="cardNumber"
             placeholder="e.g. 1234 5678 9123"
             type="text"
@@ -38,24 +48,26 @@ export default function Form({ handleChange, onSubmit, errors, ...values }) {
 
         <div className="flex-container">
           <div className="date-flex">
-            <label htmlFor="date">Exp. Date (MM/YY)</label>
+            <label htmlFor="month">Exp. Date (MM/YY)</label>
             <div className="date-container">
               <Input
+                {...register("month")}
                 maxLength={2}
                 errors={errors.month}
-                onChange={handleChange}
+                // onChange={handleChange}
                 id="month"
                 className="date"
                 placeholder="MM"
                 type="text"
-                value={values.month}
+                // value={values.month}
               />
 
               <Input
+                {...register("year")}
                 maxLength={2}
                 errors={errors.year}
-                onChange={handleChange}
-                value={values.year}
+                // onChange={handleChange}
+                // value={values.year}
                 id="year"
                 className="date"
                 placeholder="YY"
@@ -68,9 +80,10 @@ export default function Form({ handleChange, onSubmit, errors, ...values }) {
           <div className="cvc">
             <label htmlFor="cvc">CVC</label>
             <Input
+              {...register("cvc")}
               maxLength={3}
               errors={errors.cvc}
-              onChange={handleChange}
+              // onChange={handleChange}
               id="cvc"
               placeholder="e.g. 123"
               type="text"
@@ -80,7 +93,7 @@ export default function Form({ handleChange, onSubmit, errors, ...values }) {
           </div>
         </div>
 
-        <button onClick={onSubmit} className="confirm" type="submit">
+        <button className="confirm" type="submit">
           Confirm
         </button>
       </FormComponent>
