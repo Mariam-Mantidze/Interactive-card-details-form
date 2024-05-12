@@ -2,13 +2,35 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useState } from "react";
+import ReactInputMask from "react-input-mask";
+
+// import { useState } from "react";
 
 const schema = yup.object({
-  name: yup.string().required("Name is required"),
-  cardNumber: yup.string().required("Card number is required"),
-  month: yup.string().required("Can't be blank"),
-  year: yup.string().required("Can't be blank"),
+  name: yup
+    .string()
+    .required("Name is required")
+    .min(3, "Name should have at least 3 characters")
+    .max(30, "Name should have max. 30 characters")
+    .test("space check", "Both name and surname required", (value) =>
+      value.includes(" ")
+    ),
+  cardNumber: yup
+    .string()
+    .required("Card number is required")
+    .min(19, "Min. 16 symbols are required"),
+  month: yup
+    .string()
+    .required("Can't be blank")
+    .test(
+      "month validation",
+      "Invalid value",
+      (value) => parseInt(value) > 0 && parseInt(value) <= 12
+    ),
+  year: yup
+    .string()
+    .required("Can't be blank")
+    .test("year validation", "Invalid value", (value) => parseInt(value) > 24),
   cvc: yup.string().required("CVC is required"),
 });
 
@@ -44,15 +66,13 @@ export default function Form({ onSubmit }) {
 
         <div className="label-input">
           <label htmlFor="cardNumber">Card Number</label>
-          <Input
+          <ReactInputMask
             {...register("cardNumber")}
-            // value={values.cardNumber}
-            maxLength={19}
-            // errors={errors.cardNumber}
-            // onChange={handleChange}
             id="cardNumber"
             placeholder="e.g. 1234 5678 9123"
             type="text"
+            mask="9999 9999 9999 9999"
+            maskChar=""
           />
 
           {errors.cardNumber && (
@@ -64,46 +84,41 @@ export default function Form({ onSubmit }) {
           <div className="date-flex">
             <label htmlFor="month">Exp. Date (MM/YY)</label>
             <div className="date-container">
-              <Input
+              <ReactInputMask
                 {...register("month")}
-                maxLength={2}
-                // errors={errors.month}
-                // onChange={handleChange}
                 id="month"
                 className="date"
                 placeholder="MM"
                 type="text"
-                // value={values.month}
+                mask="99"
+                maskChar=""
               />
 
-              <Input
+              <ReactInputMask
                 {...register("year")}
-                maxLength={2}
-                // errors={errors.year}
-                // onChange={handleChange}
-                // value={values.year}
                 id="year"
                 className="date"
                 placeholder="YY"
                 type="text"
+                mask="99"
+                maskChar=""
               />
             </div>
 
             {errors.year || errors.month ? (
-              <ErrorMessage>{errors.month.message}</ErrorMessage>
+              <ErrorMessage>{errors.month?.message}</ErrorMessage>
             ) : null}
           </div>
 
           <div className="cvc">
             <label htmlFor="cvc">CVC</label>
-            <Input
+            <ReactInputMask
               {...register("cvc")}
-              maxLength={3}
-              // errors={errors.cvc}
-              // onChange={handleChange}
               id="cvc"
               placeholder="e.g. 123"
               type="text"
+              mask="999"
+              maskChar=""
             />
             {errors.cvc && <ErrorMessage>{errors.cvc.message}</ErrorMessage>}
           </div>
