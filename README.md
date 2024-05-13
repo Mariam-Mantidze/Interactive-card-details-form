@@ -6,7 +6,7 @@ This project is a React-based credit card form that includes validation for vari
 
 ## Features
 
-- Real-time form validation for credit card details.
+- Real-time form validation for credit card details using react-hook-form and YUP.
 - Display of formatted credit card number and expiration date.
 - Error messages for invalid inputs.
 - Success message upon successful form submission.
@@ -15,18 +15,21 @@ This project is a React-based credit card form that includes validation for vari
 ## Technologies Used
 
 - React
+- `react hook-form`
+- YUP
 - styled-components
+
 
 ## What I Learned
 
-- **Form Validation:** Learned how to implement real-time validation for various form fields and display appropriate error messages.
+- **Form Validation: Implemented complex real-time validation for various form fields using react-hook-form and YUP, enhancing the user experience by displaying appropriate error messages.
 - **Input Formatting:** Gained experience in formatting input fields, such as adding spaces in the credit card number and limiting input length.
-- **State Management:** Enhanced my understanding of managing form state using React hooks like `useState`.
+- **State Management:** Enhanced my understanding of managing form state using React hooks like useState and integrating them with react-hook-form.
 - **Conditional Rendering:** Practiced conditional rendering to display error messages and switch between the form view and the success message.
 
 ## Future Improvements
 
-- Needs to correct expiration date validations
+- Needs better expiration date validations to ensure they accurately reflect real-world credit card expiration rules.
 
 ## Installation
 
